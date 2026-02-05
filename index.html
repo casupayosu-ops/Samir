@@ -1,124 +1,18 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>San Valentín 💖</title>
-
-<style>
-html, body {
-  height: 100%;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  transition: background 0.5s ease;
-}
-
-body {
-  /* Por defecto sin imagen; se aplicará mi-fondo.jpg al pulsar "SÍ" */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  overflow: hidden;
-}
-
-.card {
-  background: rgba(255,255,255,0.9);
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  z-index: 3;
-  max-width: 90%;
-}
-
-button {
-  font-size: 20px;
-  margin: 15px;
-  padding: 15px 30px;
-  border: none;
-  border-radius: 15px;
-  cursor: pointer;
-}
-
-.yes { background: #ff4d6d; color: white; }
-.no  { background: #adb5bd; color: white; }
-
-.roses { font-size: 60px; margin-top: 20px; }
-
-/* Corazones */
-.heart {
-  position: fixed;
-  top: -10px;
-  font-size: 36px;
-  animation: fall linear forwards;
-  z-index: 2;
-  pointer-events: none;
-}
-
-@keyframes fall {
-  to {
-    transform: translateY(110vh);
-    opacity: 0;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-image: url('IMG-20260120-WA0036.jpg');
+            /* Other styles can follow */
+        }
+    </style>
 </head>
-
 <body>
-<div class="card" id="content">
-  <h1>💖 ¿Quieres ser mi San Valentín, mi princesa? 💖</h1>
-  <div>
-    <button class="yes" onclick="yes()">💘 SÍ 💘</button>
-    <button class="no" onclick="no()">🙈 NO 🙈</button>
-  </div>
-</div>
-
-<script>
-// Nombre del archivo de fondo que subiste a la raíz: mi-fondo.jpg
-const repoBackgroundFilename = 'mi-fondo.jpg';
-
-// Aplica el fondo (degradado + imagen) desde la raíz del repo
-function applyRepoBackground() {
-  document.body.style.backgroundImage =
-    "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('" + repoBackgroundFilename + "')";
-  document.body.style.backgroundSize = 'cover';
-  document.body.style.backgroundPosition = 'center';
-  document.body.style.backgroundRepeat = 'no-repeat';
-}
-
-function yes() {
-  // Aplica el fondo y cambia el contenido
-  applyRepoBackground();
-
-  document.getElementById("content").innerHTML = `
-    <h1>🥰 Sabía que ibas a decir que sí 🥰</h1>
-    <h2>💖 Feliz San Valentín, mi princesa 💖</h2>
-    <div class="roses">🌹💐🌹</div>
-  `;
-  startHearts();
-}
-
-function no() {
-  document.getElementById("content").innerHTML = `
-    <h1>😢 Oh nooo…</h1>
-    <h2>💌 Gracias por abrirlo</h2>
-  `;
-}
-
-function startHearts() {
-  // Genera corazones de diferentes tamaños y duraciones
-  const interval = setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = 'heart';
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (30 + Math.random() * 60) + "px"; // 30–90px
-    const duration = 3 + Math.random() * 3; // 3–6s
-    heart.style.animationDuration = duration + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), (duration + 0.5) * 1000);
-  }, 250);
-}
-</script>
+    <button id="yesButton">SÍ</button>
+    <!-- Other content -->
 </body>
 </html>
