@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>San Valentín 💖</title>
 
 <style>
-body {
+html, body {
+  height: 100%;
+  margin: 0;
   font-family: Arial, sans-serif;
-  background:
-    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-    url("fondo.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  transition: background 0.5s ease;
+}
+
+body {
+  /* Por defecto sin imagen; se aplicará mi-fondo.jpg al pulsar "SÍ" */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   text-align: center;
   overflow: hidden;
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255,255,255,0.9);
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  z-index: 2;
+  z-index: 3;
+  max-width: 90%;
 }
 
 button {
@@ -38,28 +40,19 @@ button {
   cursor: pointer;
 }
 
-.yes {
-  background: #ff4d6d;
-  color: white;
-}
+.yes { background: #ff4d6d; color: white; }
+.no  { background: #adb5bd; color: white; }
 
-.no {
-  background: #adb5bd;
-  color: white;
-}
-
-.roses {
-  font-size: 60px;
-  margin-top: 20px;
-}
+.roses { font-size: 60px; margin-top: 20px; }
 
 /* Corazones */
 .heart {
   position: fixed;
   top: -10px;
-  font-size: 24px;
+  font-size: 36px;
   animation: fall linear forwards;
-  z-index: 1;
+  z-index: 2;
+  pointer-events: none;
 }
 
 @keyframes fall {
@@ -74,12 +67,29 @@ button {
 <body>
 <div class="card" id="content">
   <h1>💖 ¿Quieres ser mi San Valentín, mi princesa? 💖</h1>
-  <button class="yes" onclick="yes()">💘 SÍ 💘</button>
-  <button class="no" onclick="no()">🙈 NO 🙈</button>
+  <div>
+    <button class="yes" onclick="yes()">💘 SÍ 💘</button>
+    <button class="no" onclick="no()">🙈 NO 🙈</button>
+  </div>
 </div>
 
 <script>
+// Nombre del archivo de fondo que subiste a la raíz: mi-fondo.jpg
+const repoBackgroundFilename = 'mi-fondo.jpg';
+
+// Aplica el fondo (degradado + imagen) desde la raíz del repo
+function applyRepoBackground() {
+  document.body.style.backgroundImage =
+    "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('" + repoBackgroundFilename + "')";
+  document.body.style.backgroundSize = 'cover';
+  document.body.style.backgroundPosition = 'center';
+  document.body.style.backgroundRepeat = 'no-repeat';
+}
+
 function yes() {
+  // Aplica el fondo y cambia el contenido
+  applyRepoBackground();
+
   document.getElementById("content").innerHTML = `
     <h1>🥰 Sabía que ibas a decir que sí 🥰</h1>
     <h2>💖 Feliz San Valentín, mi princesa 💖</h2>
@@ -96,18 +106,18 @@ function no() {
 }
 
 function startHearts() {
-  setInterval(() => {
+  // Genera corazones de diferentes tamaños y duraciones
+  const interval = setInterval(() => {
     const heart = document.createElement("div");
-    heart.classList.add("heart");
+    heart.className = 'heart';
     heart.innerHTML = "💖";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+    heart.style.fontSize = (30 + Math.random() * 60) + "px"; // 30–90px
+    const duration = 3 + Math.random() * 3; // 3–6s
+    heart.style.animationDuration = duration + "s";
     document.body.appendChild(heart);
-
-    setTimeout(() => {
-      heart.remove();
-    }, 5000);
-  }, 300);
+    setTimeout(() => heart.remove(), (duration + 0.5) * 1000);
+  }, 250);
 }
 </script>
 </body>
